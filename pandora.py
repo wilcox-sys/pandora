@@ -11,21 +11,22 @@ def verificar_url(url):
         pass
     return False
 
-def buscar_urls(nombre_completo, num_resultados=30):
+def buscar_urls(nombre_completo):
     query = f'"{nombre_completo}"'
     print(f"\n🔍 Buscando información sobre: {query}\n")
     
     urls_validas = []
 
     try:
-        for url in search(query, num_results=num_resultados, lang="es"):
+        # No usamos argumentos adicionales
+        for url in search(query, lang="es"):
             es_valida = verificar_url(url)
             if es_valida:
                 print(f"✔️  {url}")
                 urls_validas.append(url)
             else:
                 print(f"❌ {url}")
-            time.sleep(1)  # Respetar límites de búsqueda
+            time.sleep(1)
     except Exception as e:
         print(f"❌ Error en la búsqueda: {e}")
 
