@@ -15,28 +15,28 @@ def buscar_urls(nombre_completo):
     query = f'"{nombre_completo}"'
     print(f"\n🔍 Buscando información sobre: {query}\n")
     
-    urls_validas = []
+    urls_resultado = []
 
     try:
-        # No usamos argumentos adicionales
         for url in search(query, lang="es"):
             es_valida = verificar_url(url)
             if es_valida:
                 print(f"✔️  {url}")
-                urls_validas.append(url)
+                urls_resultado.append(("✔️", url))
             else:
                 print(f"❌ {url}")
+                urls_resultado.append(("❌", url))
             time.sleep(1)
     except Exception as e:
         print(f"❌ Error en la búsqueda: {e}")
 
-    return urls_validas
+    return urls_resultado
 
 def guardar_resultados(nombre, urls):
     archivo = f"resultados_{nombre.replace(' ', '_')}.txt"
     with open(archivo, 'w', encoding='utf-8') as f:
-        for url in urls:
-            f.write(url + "\n")
+        for estado, url in urls:
+            f.write(f"{estado} {url}\n")
     print(f"\n💾 Resultados guardados en: {archivo}")
 
 def main():
